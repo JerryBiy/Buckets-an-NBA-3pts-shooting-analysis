@@ -19,55 +19,51 @@ svg
   .attr("height", courtHeight)
   .attr("transform", `rotate(180, ${courtWidth / 2}, ${courtHeight / 2})`);
 
-// year dataset
+const years = [
+  2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007,
+  2006, 2005, 2004,
+];
 let data = {};
 
-Promise.all([
-  d3.csv("data/NBA_2024_Shots.csv"),
-  d3.csv("data/NBA_2023_Shots.csv"),
-]).then(([data2024, data2023]) => {
-  data2024.forEach((d) => {
-    d.LOC_X = +d.LOC_X;
-    d.LOC_Y = +d.LOC_Y;
-    d.SHOT_MADE = d.SHOT_MADE === "TRUE";
-  });
+// Load and process datasets dynamically
+Promise.all(years.map((year) => d3.csv(`data/NBA_${year}_Shots.csv`))).then(
+  (datasets) => {
+    datasets.forEach((dataset, index) => {
+      const year = years[index];
+      dataset.forEach((d) => {
+        d.LOC_X = +d.LOC_X;
+        d.LOC_Y = +d.LOC_Y;
+        d.SHOT_MADE = d.SHOT_MADE === "TRUE";
+      });
+      data[year] = dataset;
 
-  data2023.forEach((d) => {
-    d.LOC_X = +d.LOC_X;
-    d.LOC_Y = +d.LOC_Y;
-    d.SHOT_MADE = d.SHOT_MADE === "TRUE";
-  });
+      playerDropdown(data[years[0]]);
+    });
+    // year dropdown
+    const yearDropdown = d3.select("#year-select");
+    years.sort((a, b) => +b - +a);
+    years.forEach((year) => {
+      yearDropdown.append("option").text(year).attr("value", year);
+    });
 
-  data[2024] = data2024;
-  data[2023] = data2023;
-
-  // year dropdown
-  const yearDropdown = d3.select("#year-select");
-  const years = Object.keys(data).sort((a, b) => +b - +a);
-  years.forEach((year) => {
-    yearDropdown.append("option").text(year).attr("value", year);
-  });
-
-  playerDropdown(data2024);
-
-  yearDropdown.on("change", function () {
-    const year = this.value;
-    loadDataForYear(year);
-  });
-});
-
+    yearDropdown.on("change", function () {
+      const year = this.value;
+      loadDataForYear(year);
+    });
+  }
+);
 function loadDataForYear(year) {
   if (data[year]) {
     playerDropdown(data[year]);
   } else {
-    d3.csv(`NBA_${year}_Shots.csv`).then((d) => {
-      d.forEach((d1) => {
-        d1.LOC_X = +d1.LOC_X;
-        d1.LOC_Y = +d1.LOC_Y;
-        d1.SHOT_MADE = d1.SHOT_MADE === "TRUE";
+    d3.csv(`NBA_${year}_Shots.csv`).then((dataset) => {
+      dataset.forEach((d) => {
+        d.LOC_X = +d.LOC_X;
+        d.LOC_Y = +d.LOC_Y;
+        d.SHOT_MADE = d.SHOT_MADE === "TRUE";
       });
-      data[year] = d;
-      playerDropdown(d);
+      data[year] = dataset;
+      playerDropdown(dataset);
     });
   }
 }
