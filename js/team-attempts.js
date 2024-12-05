@@ -31,7 +31,7 @@ class TeamAttemptsViz {
   initViz() {
     console.log("Starting to load data...");
 
-    d3.csv("/data/nba_3pt_data.csv")
+    d3.csv("data/nba_3pt_data.csv")
       .then((data) => {
         console.log("Data loaded successfully:", data);
         // Parse numeric values

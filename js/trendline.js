@@ -289,7 +289,7 @@ class NBALineVis {
 }
 async function loadTrendLineData() {
   try {
-    const data = await d3.csv("../Data/reg_total.csv");
+    const data = await d3.csv("data/reg_total.csv");
     console.log("Raw data loaded:", data.length, "rows");
 
     const processedData = data.map((d) => ({
