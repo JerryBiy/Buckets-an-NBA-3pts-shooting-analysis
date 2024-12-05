@@ -1,0 +1,401 @@
+#scatter-plot {
+  width: 100%;
+  height: 500px;
+  margin: 1rem 0 3rem 0;
+}
+
+.tooltip {
+  position: absolute;
+  background: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+#team-attempts-viz {
+  width: 100%;
+  height: 500px;
+  margin: 20px 0;
+}
+
+#emily-viz-container {
+  width: 100%;
+  height: 600px;
+  margin: 20px 0;
+}
+.made {
+  fill: green;
+  opacity: 0.8;
+}
+
+.missed {
+  fill: red;
+  opacity: 0.8;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+#shot-chart-section {
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 6rem 0;
+}
+
+#shot-chart-section .form-control {
+  width: 200px;
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+#shot-chart-section .form-control:hover {
+  border-color: #4fbfa8;
+}
+
+#shot-chart-section .form-control:focus {
+  outline: none;
+  border-color: #4fbfa8;
+  box-shadow: 0 0 0 0.2rem rgba(79, 191, 168, 0.25);
+}
+
+#shot-chart-section label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #495057;
+}
+
+#shot-chart {
+  margin: 20px auto;
+  display: block;
+}
+
+#shot-chart-section .chart-description {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #4fbfa8;
+}
+
+#shot-chart-section .chart-description p {
+  color: #495057;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+#shot-chart-section header {
+  position: sticky;
+  top: 2rem;
+}
+
+#shot-chart-section .lined:after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 2px;
+  background: #4fbfa8;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.analysis-description {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #4fbfa8;
+  margin-top: 3rem;
+}
+
+.analysis-description p {
+  color: #495057;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.analysis-description ul {
+  color: #495057;
+  font-size: 0.95rem;
+  padding-left: 1.2rem;
+  margin-bottom: 0;
+}
+
+.analysis-description li {
+  margin-bottom: 0.5rem;
+}
+
+.analysis-description li:last-child {
+  margin-bottom: 0;
+}
+
+.form-group {
+  margin-top: 2rem;
+}
+
+section {
+  padding: 6rem 0;
+}
+
+.container {
+  padding-top: 2rem;
+}
+
+.controls-container {
+  position: sticky;
+  top: 2rem;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.analysis-description {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #4fbfa8;
+  margin-bottom: 2rem;
+}
+
+.lined {
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.lined:after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 2px;
+  background: #4fbfa8;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.text-uppercase.lined {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+.viz-controls {
+  position: sticky;
+  top: 2rem;
+  padding: 2rem 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.analysis-description {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #4fbfa8;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.row {
+  margin-top: 2rem;
+}
+
+.chart-description {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #4fbfa8;
+  margin-top: 1rem;
+}
+
+.chart-description p {
+  color: #495057;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.chart-description ul {
+  color: #495057;
+  font-size: 0.95rem;
+  padding-left: 1.2rem;
+  margin-bottom: 0;
+}
+
+.chart-description li {
+  margin-bottom: 0.5rem;
+}
+
+.chart-description li:last-child {
+  margin-bottom: 0;
+}
+
+.viz-container {
+  position: relative;
+  margin-top: 20px;
+}
+
+#team-attempts-chart {
+  width: 100%;
+  height: 600px;
+  margin: 0;
+}
+
+.team-attempts-tooltip {
+  position: absolute;
+  background: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  z-index: 100;
+  max-width: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.team-attempts-tooltip strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 5px;
+}
+
+#visualization-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.hover-line {
+  stroke: #666;
+  stroke-width: 1px;
+  stroke-dasharray: 3, 3;
+}
+
+.league-line {
+  stroke: steelblue;
+  stroke-width: 3;
+  fill: none;
+}
+
+.trend-tooltip {
+  position: absolute;
+  background-color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  pointer-events: none;
+  font-size: 14px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.2s ease;
+}
+
+.trend-tooltip strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.axis text {
+  font-size: 12px;
+  color: #666;
+}
+
+.axis path,
+.axis line {
+  stroke: #e0e0e0;
+}
+
+.grid line {
+  stroke: #f0f0f0;
+  stroke-opacity: 0.5;
+}
+
+.chart-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.legend text {
+  font-size: 12px;
+  fill: #666;
+}
+
+.x-axis path,
+.y-axis path,
+.x-axis line,
+.y-axis line {
+  stroke: #ccc;
+}
+
+.x-axis text,
+.y-axis text {
+  fill: #666;
+}
+
+.x-axis-label,
+.y-axis-label {
+  fill: #666;
+  font-size: 14px;
+}
+
+.grid line {
+  stroke: #e0e0e0;
+}
+
+.grid path {
+  stroke-width: 0;
+}

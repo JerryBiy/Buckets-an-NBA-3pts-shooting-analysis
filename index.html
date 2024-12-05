@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Buckets</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="all,follow" />
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <!-- Google fonts-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Cardo:400,400i"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+    />
+    <!-- Lightbox-->
+    <link rel="stylesheet" href="vendor/lightbox2/css/lightbox.min.css" />
+    <!-- Font Awesome-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <!-- Parallax-->
+    <link rel="stylesheet" href="vendor/onepage-scroll/onepage-scroll.css" />
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet" />
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="shortcut icon" href="favicon.png" />
+    <style>
+      /* Title adjustments */
+      .text-uppercase.lined {
+        margin-top: 4rem; /* Increase top margin to move title down */
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        color: #2c3e50;
+        padding-left: 1rem; /* Add some left padding */
+      }
+
+      /* Right side content adjustments */
+      .viz-controls {
+        position: sticky;
+        top: 2rem;
+        padding: 0 1rem; /* Reduce padding to move content up */
+        margin-top: -2rem; /* Negative margin to pull content up */
+        background-color: #f9f9f9;
+        border-radius: 8px;
+      }
+
+      /* Form group spacing */
+      .form-group {
+        margin-bottom: 1.5rem; /* Reduce bottom margin */
+      }
+
+      /* Analysis description adjustments */
+      .analysis-description {
+        margin-top: 1.5rem; /* Reduce top margin */
+        margin-bottom: 1.5rem;
+        max-height: calc(100vh - 350px); /* Adjust max height */
+      }
+
+      /* Container adjustments */
+      .container {
+        padding-top: 1rem; /* Reduce top padding */
+      }
+
+      /* Row spacing */
+      .row {
+        margin-top: 1rem; /* Reduce top margin */
+      }
+
+      #chart {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      #team-attempts-chart {
+        width: 100%;
+        height: 600px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <section class="bg-cover bg-center hero">
+        <div class="dark-overlay"></div>
+        <div class="position-relative z-index-1">
+          <div class="text-center text-white">
+            <h1 class="text-uppercase my-4" style="font-size: 3.5rem">
+              Buckets
+            </h1>
+            <p class="font-italic lead" style="font-size: 1.5rem">
+              Evolution of the 3 Pointer in Modern Basketball
+            </p>
+            <p class="font-italic lead" style="font-size: 1.5rem">
+              &copy; 2024 BC
+            </p>
+            <br />
+            <p class="font-italic lead"></p>
+          </div>
+        </div>
+        <div class="scroll-btn link-scroll">
+          <i class="fas fa-angle-double-down"></i>
+        </div>
+      </section>
+      <section>
+        <div class="d-flex h-100 align-items-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h2
+                  class="text-uppercase"
+                  style="
+                    margin-bottom: 0px;
+                    padding-bottom: 0px;
+                    margin-top: 30px;
+                  "
+                >
+                  NBA 3-Point Shooting Analysis
+                </h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-9">
+                <div id="scatter-plot"></div>
+              </div>
+              <div class="col-md-3">
+                <div class="viz-controls">
+                  <div class="form-group">
+                    <label style="margin-top: 2px">Season:</label>
+                    <select id="seasonSelector" class="form-control">
+                      <!-- Will be populated dynamically -->
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Circle Size Represents:</label>
+                    <select id="sizeSelector" class="form-control">
+                      <option value="fixed">Fixed Size</option>
+                      <option value="winrate">Winning Rate</option>
+                    </select>
+                  </div>
+                  <div class="analysis-description">
+                    <p>
+                      This visualization reveals the relationship between teams'
+                      3-point shooting volume and their success rate. Each point
+                      represents an NBA team, with the size optionally showing
+                      their winning percentage.
+                    </p>
+                    <p>Key insights:</p>
+                    <ul>
+                      <li>Teams are increasingly embracing the 3-point shot</li>
+                      <li>
+                        Higher attempt rates don't always correlate with better
+                        accuracy
+                      </li>
+                      <li>
+                        Successful teams often balance volume with efficiency
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="d-flex h-100 align-items-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-9">
+                <div class="viz-container">
+                  <div id="team-attempts-chart"></div>
+                  <div class="team-attempts-tooltip"></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <header class="text-left">
+                  <h2 class="text-uppercase lined">
+                    Team Attempts & Percentages
+                  </h2>
+                  <div class="chart-description">
+                    <p>
+                      This visualization shows the relationship between NBA
+                      teams' 3-point attempt volume and their success rates.
+                      Each team is represented by a circle, with the size
+                      indicating their attempt volume. And hovering over a team
+                      will show the exact attempt volume and percentage.
+                    </p>
+                    <p>Key insights:</p>
+                    <ul>
+                      <li>
+                        Teams with higher attempt rates don't necessarily
+                        achieve better percentages
+                      </li>
+                      <li>
+                        Most teams cluster around league average for both
+                        metrics
+                      </li>
+                    </ul>
+                  </div>
+                </header>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="shot-chart-section">
+        <div class="d-flex h-100 align-items-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3">
+                <header class="text-left mb-5">
+                  <h2 class="text-uppercase lined">NBA Shot Chart</h2>
+                  <div class="chart-description mb-4">
+                    <p>
+                      The shot chart displays where the player took their shots
+                      and whether they made or missed it. This effectively shows
+                      where the player is most effective at scoring and the 3
+                      points attempts that were made.
+                    </p>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="year-select">Select Year:</label>
+                    <select id="year-select" class="form-control"></select>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="player-select">Select Player:</label>
+                    <select id="player-select" class="form-control"></select>
+                  </div>
+                </header>
+              </div>
+              <div class="col-md-9">
+                <div class="text-center">
+                  <svg id="shot-chart"></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="d-flex h-100 align-items-center">
+          <div class="container">
+            <header class="text-center mb-5">
+              <h2 class="text-uppercase lined">NBA Scoring Evolution</h2>
+            </header>
+            <div class="row">
+              <div class="col-12">
+                <div id="visualization-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="d-flex h-100 align-items-center">
+          <div class="container">
+            <header class="text-center mb-5">
+              <h2 class="text-uppercase lined">3-Point Attempt Trends</h2>
+            </header>
+            <div class="row">
+              <div class="col-12">
+                <div id="trend-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="d-flex h-100 align-items-center">
+          <div class="container">
+            <header class="text-center mb-5">
+              <h2 class="text-uppercase lined">Conclusion</h2>
+              <p>
+                The evolution of the 3-point shot has been one of the most
+                significant trends in NBA basketball. Over time, the reliance on
+                3-pointers has grown exponentially, as reflected in the steadily
+                increasing attempts per game. Interestingly, this shift occurred
+                despite little to no improvement in shooting accuracy,
+                which shows the league's prioritization of potential scoring
+                over efficiency. The growing contribution of 3-pointers to
+                teams' total points reveals a strategic emphasis on maximizing
+                high-value opportunities, even at the risk of maintaining
+                relatively modest success rates.
+              </p>
+              <p>
+                Analyzing team behavior, teams like the Houston Rockets and
+                Golden State Warriors emerged as leaders in adopting the 3-point
+                strategy, with the Warriors, in particular, leveraging it during
+                their championship-winning years. Yet, it is counterintuitive to
+                observe that there is no significant correlation between the
+                number of 3-pointers made and team success. This suggests that
+                while the 3-pointer is an essential scoring tool, it is not the
+                sole determinant of winning, highlighting the importance of a
+                balanced approach.
+              </p>
+              <p>
+                The findings underscore the complexity of modern basketball
+                strategy. While 3-point attempts have skyrocketed, accuracy and
+                success metrics present a nuanced story. Teams appear willing to
+                accept lower accuracy for higher scoring potential,
+                demonstrating a bold shift in offensive philosophies. The Golden
+                State Warriors' focus on consistent 3-point efficiency and the
+                influence of players like Stephen Curry reflect how key
+                individuals and teams have shaped this era of basketball.
+              </p>
+              <h4>
+                The rise of the 3-pointer signifies more than a statistical
+                trend; it marks a transformation in how the game is played,
+                valued, and strategized. This shift continues to redefine the
+                NBA's landscape, balancing innovation and risk in pursuit of
+                success.
+              </h4>
+            </header>
+            <div class="row"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- JavaScript files-->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/onepage-scroll/jquery.onepage-scroll.min.js"></script>
+    <script src="vendor/lightbox2/js/lightbox.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
+    <script src="js/front.js"></script>
+    <script src="js/threePointViz.js"></script>
+    <script src="js/shot-chart.js"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="./js/stacked.js"></script>
+    <script src="./js/trendline.js"></script>
+    <script src="./js/team-attempts.js"></script>
+
+    <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+  </body>
+</html>
